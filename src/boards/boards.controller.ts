@@ -13,9 +13,11 @@ import { User } from 'src/auth/user.entity';
 export class BoardsController {
     constructor(private boardService : BoardsService){}
    
-    @Get('/')
-    getAllBoard():Promise<Board[]>{
-        return this.boardService.getAllBoards();
+    @Get()
+    getAllBoard(
+        @GetUser() user : User
+    ):Promise<Board[]>{
+        return this.boardService.getAllBoards(user);
     }
 
     @Post()
@@ -34,8 +36,11 @@ export class BoardsController {
     }
     
     @Delete('/:id')
-    deleteBoard(@Param('id', ParseIntPipe) id : number): Promise<void> {
-        return this.boardService.deleteBoard(id);  
+    deleteBoard(
+        @Param('id', ParseIntPipe) id : number,
+        @GetUser() user : User
+    ): Promise<void> {
+        return this.boardService.deleteBoard(id, user);  
     }
     
     @Patch('/:id/status')
