@@ -13,7 +13,7 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique }
     @Column()
     password : string;
 
-    @OneToMany(type => Board, board => Board.user, {eager : true})
+    @OneToMany(type => Board, board => board.user, {eager : true})
     boards: Board[]
 
 
